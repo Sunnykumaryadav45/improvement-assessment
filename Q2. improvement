@@ -1,0 +1,145 @@
+Q2.  Imagine you are creating a furniture shop simulator. The code consists of the classes that represent.   
+a. A family of related products, say Chair, Sofa, CoffeeTable    
+ b. Several variants of this family For example, products Chair, Sofa, CoffeeTable, are available in Modern, Victorian, ArtDeco.      
+Find the way to create the individual furniture objects so that they match other objects of the same family. Customers will get 
+quite mad when they receive non-matching furniture. Also, you don’t want to change existing code when adding new products or 
+families of products to the program. Furniture vendors update their catalogs very often, and you wouldn’t want to change the core code each time it happens.
+
+
+from abc import ABC, abstractmethod
+
+# Abstract Product for Chair
+class Chair(ABC):
+    @abstractmethod
+    def describe(self) -> str:
+        pass
+
+# Abstract Product for Sofa
+class Sofa(ABC):
+    @abstractmethod
+    def describe(self) -> str:
+        pass
+
+# Abstract Product for CoffeeTable
+class CoffeeTable(ABC):
+    @abstractmethod
+    def describe(self) -> str:
+        pass
+-----------------------------------------------------------------------------------------------------
+
+# Modern Furniture
+class ModernChair(Chair):
+    def describe(self) -> str:
+        return "Modern Chair"
+
+class ModernSofa(Sofa):
+    def describe(self) -> str:
+        return "Modern Sofa"
+
+class ModernCoffeeTable(CoffeeTable):
+    def describe(self) -> str:
+        return "Modern Coffee Table"
+
+# Victorian Furniture
+class VictorianChair(Chair):
+    def describe(self) -> str:
+        return "Victorian Chair"
+
+class VictorianSofa(Sofa):
+    def describe(self) -> str:
+        return "Victorian Sofa"
+
+class VictorianCoffeeTable(CoffeeTable):
+    def describe(self) -> str:
+        return "Victorian Coffee Table"
+
+# ArtDeco Furniture
+class ArtDecoChair(Chair):
+    def describe(self) -> str:
+        return "Art Deco Chair"
+
+class ArtDecoSofa(Sofa):
+    def describe(self) -> str:
+        return "Art Deco Sofa"
+
+class ArtDecoCoffeeTable(CoffeeTable):
+    def describe(self) -> str:
+        return "Art Deco Coffee Table"
+----------------------------------------------------------------------------------
+
+class FurnitureFactory(ABC):
+    @abstractmethod
+    def create_chair(self) -> Chair:
+        pass
+
+    @abstractmethod
+    def create_sofa(self) -> Sofa:
+        pass
+
+    @abstractmethod
+    def create_coffee_table(self) -> CoffeeTable:
+        pass
+------------------------------------------------------------------------------------------
+
+class ModernFurnitureFactory(FurnitureFactory):
+    def create_chair(self) -> Chair:
+        return ModernChair()
+
+    def create_sofa(self) -> Sofa:
+        return ModernSofa()
+
+    def create_coffee_table(self) -> CoffeeTable:
+        return ModernCoffeeTable()
+
+class VictorianFurnitureFactory(FurnitureFactory):
+    def create_chair(self) -> Chair:
+        return VictorianChair()
+
+    def create_sofa(self) -> Sofa:
+        return VictorianSofa()
+
+    def create_coffee_table(self) -> CoffeeTable:
+        return VictorianCoffeeTable()
+
+class ArtDecoFurnitureFactory(FurnitureFactory):
+    def create_chair(self) -> Chair:
+        return ArtDecoChair()
+
+    def create_sofa(self) -> Sofa:
+        return ArtDecoSofa()
+
+    def create_coffee_table(self) -> CoffeeTable:
+        return ArtDecoCoffeeTable()
+--------------------------------------------------------------------------------------------
+
+def get_furniture_description(factory: FurnitureFactory):
+    chair = factory.create_chair()
+    sofa = factory.create_sofa()
+    coffee_table = factory.create_coffee_table()
+
+    print(chair.describe())
+    print(sofa.describe())
+    print(coffee_table.describe())
+
+# Example usage
+modern_factory = ModernFurnitureFactory()
+get_furniture_description(modern_factory)
+
+victorian_factory = VictorianFurnitureFactory()
+get_furniture_description(victorian_factory)
+
+art_deco_factory = ArtDecoFurnitureFactory()
+get_furniture_description(art_deco_factory)
+---------------------------------------------------------------------------------------------
+
+Output:
+
+Modern Chair
+Modern Sofa
+Modern Coffee Table
+Victorian Chair
+Victorian Sofa
+Victorian Coffee Table
+Art Deco Chair
+Art Deco Sofa
+Art Deco Coffee Table
