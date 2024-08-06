@@ -1,0 +1,69 @@
+Q1.  We have to calculate the area of a rectangle, a square and a circle. Create an abstract class 'Shape' with three abstract methods namely 'RectangleArea' taking two parameters,
+'SquareArea' and 'CircleArea' taking one parameter each. 
+The parameters of 'RectangleArea' are its length and breadth, that of
+'SquareArea' is its side and that of 'CircleArea' is its radius.
+Now create another class 'Area' containing all the three methods 'RectangleArea', 'SquareArea' and 'CircleArea'
+for printing the area of rectangle, square and circle respectively.Create an object of class 'Area' and call all the three methods.
+
+
+
+from abc import ABC, abstractmethod
+
+class Shape(ABC):
+    @abstractmethod
+    def RectangleArea(self, length: float, breadth: float) -> float:
+        pass
+
+    @abstractmethod
+    def SquareArea(self, side: float) -> float:
+        pass
+
+    @abstractmethod
+    def CircleArea(self, radius: float) -> float:
+        pass
+---------------------------------------------------------------------------------------
+
+import math
+
+class Area(Shape):
+    def RectangleArea(self, length: float, breadth: float) -> float:
+        return length * breadth
+
+    def SquareArea(self, side: float) -> float:
+        return side * side
+
+    def CircleArea(self, radius: float) -> float:
+        return math.pi * radius * radius
+---------------------------------------------------------------------------------------------
+
+def main():
+    # Create an object of the Area class
+    area_calculator = Area()
+
+    # Parameters for the shapes
+    length = 5.0
+    breadth = 3.0
+    side = 4.0
+    radius = 2.5
+
+    # Calculate and print areas
+    rectangle_area = area_calculator.RectangleArea(length, breadth)
+    square_area = area_calculator.SquareArea(side)
+    circle_area = area_calculator.CircleArea(radius)
+
+    print(f"Rectangle Area (length={length}, breadth={breadth}): {rectangle_area}")
+    print(f"Square Area (side={side}): {square_area}")
+    print(f"Circle Area (radius={radius}): {circle_area}")
+
+# Run the main function
+if __name__ == "__main__":
+    main()
+---------------------------------------------------------------------------------------------------
+
+
+Output
+
+
+Rectangle Area (length=5.0, breadth=3.0): 15.0
+Square Area (side=4.0): 16.0
+Circle Area (radius=2.5): 19.634954084936208
